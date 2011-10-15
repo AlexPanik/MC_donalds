@@ -1,0 +1,67 @@
+<?php if($action=='main'){ ?>
+<h1>Список ингридиентов</h1>
+<?php if(sizeof($data)==0){ ?>
+	<h5>В базе нету ингридиентов</h5>
+<?php }else{   ?>
+	<table border="1px">
+		<tr><th>ID</th><th>Название ингридиента</th><th>Принадлежность к городу</th><th>Редактирование</th></tr>
+		<?php 
+			foreach($data as $key=>$val){
+				$tek_city='';
+				if($val['city_id']==0){
+					$tek_city='Используется во всех городах';
+				}else{
+					foreach($citys as $k=>$v){
+						if($v['id']==$val['city_id']){
+							$tek_city=$v['name_ru'];
+						}
+					}
+				}
+				echo '<tr><td>'.$val['id'].'</td><td>'.$val['name_ru'].'</td><td>'.$tek_city.'</td><td><a href="javascript:if (confirm(\'Редактировать?\')) document.location.href = \'/admin-ingredients/edit/'.$val['id'].'/\'">Редактировать</a> / <a href="javascript:if (confirm(\'Удалить?\')) document.location.href = \'/admin-ingredients/del/'.$val['id'].'/\'">Удалить</a></td></tr>';
+				
+			}
+		?>
+	</table>
+<?php  } ?>
+<br>
+<a href="/admin-ingredients/add/">Добавить ингридиент>></a><br>
+<a href="/managment/">Вернуться назад</a>
+<?php }elseif($action=='add'){ ?>
+<h1>Добавление ингридиента</h1>
+<br>
+<form action="" method="POST">
+	<div class="form">
+		<div class="label">Ингридиент:</div><div class="value"><input type="text" name="name_ru"></div><br><br>
+		<div class="label">Город:</div>
+		<div class="value">
+		<select name="city">
+			<option value="0">Есть во всех городах</option>
+			<?php foreach($citys as $key=>$val): ?>
+			<option value="<?php echo $val['id'] ?>"><?php echo $val['name_ru'] ?></option>	
+			<?php endforeach; ?>
+		</select>
+		</div><br><br>
+		<div class="label"><input type="submit" value="Добавить"></div>
+	</div>
+</form>
+
+
+<?php }elseif($action=='edit'){ ?>
+<h1>Редактирование ингридиента</h1>
+<br>
+<form action="" method="POST">
+	<div class="form">
+		<div class="label">Ингридиент:</div><div class="value"><input value="<?php echo $data['name_ru']; ?>" type="text" name="name_ru"></div><br><br>
+		<div class="label">Город:</div>
+		<div class="value">
+		<select name="city">
+			<option value="0">Есть во всех городах</option>
+			<?php foreach($citys as $key=>$val): ?>
+			<option value="<?php echo $val['id'] ?>" <?php if($val['id']==$data['city_id']){ echo'selected'; }  ?>><?php echo $val['name_ru'] ?></option>	
+			<?php endforeach; ?>
+		</select>
+		</div><br><br>
+		<div class="label"><input type="submit" value="Изменить"></div>
+	</div>
+</form>
+<?php }?>

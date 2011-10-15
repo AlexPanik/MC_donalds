@@ -1,0 +1,39 @@
+
+.form{
+	margin-top:15px;
+	float:left;
+}
+	
+.form  .label{
+	float:left;
+	width:210px;
+	font-weight:bold;
+}
+
+.form  .value{
+	float:left;
+	width:200px;
+}
+
+.form input{
+	/*width: 150px;*/
+}	
+	
+h5{
+	color:#FC0000;
+	font-weight:bold;
+}	
+
+.link_add{
+	float:right;
+}
+
+a{
+	color:#FC0000;
+	text-decoration:underline;
+}
+
+a:hover{
+	color:#333;
+	text-decoration:none;
+}
